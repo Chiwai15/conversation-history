@@ -5,7 +5,10 @@ Saves every user request and assistant response to `~/.claude/conversation-histo
 ```
 <repo>/<session>/requests/index.html    user prompts
 <repo>/<session>/responses/index.html   final replies
+<repo>/<session>/{requests,responses}/first-10.md, last-20.md   plain-text recall files
 ```
+
+- **After compaction**: a hook hands the model the 4 recall files (first 10 = original goal, last 20 = latest work), so it can re-read the user's own words instead of trusting the summary.
 
 - One folder per repo (worktrees share the main repo name), one folder per session, so parallel agents never collide.
 - Keeps the latest 500 entries per page; older ones are removed automatically.

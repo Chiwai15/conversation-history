@@ -1,16 +1,13 @@
 #!/bin/bash
 export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
 max_entries=500
+first_entries=10
+last_entries=20
 kind=$1
 
 input=$(cat)
-sid=$(jq -r .session_id <<<"$input")
-cwd=$(jq -r '.cwd // empty' <<<"$input")
-cwd=${cwd:-${CLAUDE_PROJECT_DIR:-$PWD}}
-git_dir=$(git -C "$cwd" rev-parse --path-format=absolute --git-common-dir 2>/dev/null)
-repo=$(basename "$([ -n "$git_dir" ] && dirname "$git_dir" || echo "$cwd")")
-root="$HOME/.claude/conversation-history"
-dir="$root/$repo/$sid/$kind"
+source "$(dirname "$0")/session-dir.sh"
+dir="$session_dir/$kind"
 html="$dir/index.html"
 mkdir -p "$dir" "$root/.assets"
 cp -f "$(dirname "$0")"/../assets/* "$root/.assets/"
@@ -44,7 +41,8 @@ HEAD
 fi
 
 body=$(sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' <<<"$txt")
-printf '<section><time>%s</time>\n<pre>%s</pre>\n</section>\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$body" >> "$html"
+ts=$(date '+%Y-%m-%d %H:%M:%S')
+printf '<section><time>%s</time>\n<pre>%s</pre>\n</section>\n' "$ts" "$body" >> "$html"
 
 extra=$(( $(grep -c '^<section><time>' "$html") - max_entries ))
 if [ "$extra" -gt 0 ]; then
@@ -54,4 +52,16 @@ if [ "$extra" -gt 0 ]; then
     after && $0 == "<hr>" { after = 0; next }
     { after = 0; print }
   ' "$html" > "$html.tmp" && mv "$html.tmp" "$html"
+fi
+
+count_entries() { [ -f "$1" ] && grep -c '^<!-- entry -->$' "$1" || true; }
+entry=$(printf '<!-- entry -->\n### %s\n\n%s\n' "$ts" "$txt")
+first="$dir/first-$first_entries.md"
+last="$dir/last-$last_entries.md"
+n=$(count_entries "$first")
+[ "${n:-0}" -lt "$first_entries" ] && printf '%s\n\n' "$entry" >> "$first"
+printf '%s\n\n' "$entry" >> "$last"
+extra=$(( $(count_entries "$last") - last_entries ))
+if [ "$extra" -gt 0 ]; then
+  awk -v drop="$extra" '/^<!-- entry -->$/ { n++ } n > drop' "$last" > "$last.tmp" && mv "$last.tmp" "$last"
 fi

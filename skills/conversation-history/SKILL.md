@@ -1,12 +1,14 @@
 ---
 name: conversation-history
-description: Use when the user asks to open, find, list, or export (PDF) saved requests or responses for this session or repo, or asks why a message was not saved.
+description: Use when the user asks to open, find, list, or export (PDF) saved requests or responses for this session or repo, asks why a message was not saved, or after compaction to recover the session's original goal and latest instructions.
 ---
 
 The plugin saves both sides of every turn under `~/.claude/conversation-history/<repo>/<session_id>/`:
 
 - `requests/index.html`: every user prompt (UserPromptSubmit hook).
 - `responses/index.html`: every final reply (Stop hook).
+- `first-10.md` / `last-20.md` in each folder: plain-text copies of the session's first 10 entries (original goal, never trimmed) and latest 20 (rolling).
+- After compaction, a SessionStart (`compact`) hook gives these 4 file paths with a 2-line note: requests are the user's own words and override the summary (newest wins); responses are earlier claims to re-verify. Read them before continuing.
 - `<repo>` is the main git repo folder name (worktrees share it), else the project folder name.
 - This session's id is `${CLAUDE_SESSION_ID}`.
 - Images and subagent replies are not saved; for responses, only the final message of each turn.
