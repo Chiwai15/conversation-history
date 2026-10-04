@@ -1,0 +1,11 @@
+{
+  "name": "response-saver",
+  "owner": { "name": "Nelson Yau" },
+  "plugins": [
+    {
+      "name": "response-saver",
+      "source": "./",
+      "description": "Appends every assistant response to ~/.claude/responses/<repo>/<session>.html"
+    }
+  ]
+}
