@@ -2,7 +2,7 @@
 export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
 max_entries=500
 first_entries=10
-last_entries=20
+last_entries=10
 kind=$1
 
 input=$(cat)
@@ -58,6 +58,7 @@ count_entries() { [ -f "$1" ] && grep -c '^<!-- entry -->$' "$1" || true; }
 entry=$(printf '<!-- entry -->\n### %s\n\n%s\n' "$ts" "$txt")
 first="$dir/first-$first_entries.md"
 last="$dir/last-$last_entries.md"
+for f in "$dir"/last-*.md; do [ -f "$f" ] && [ "$f" != "$last" ] && mv "$f" "$last"; done
 n=$(count_entries "$first")
 [ "${n:-0}" -lt "$first_entries" ] && printf '%s\n\n' "$entry" >> "$first"
 printf '%s\n\n' "$entry" >> "$last"

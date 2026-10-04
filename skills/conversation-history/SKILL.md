@@ -7,7 +7,7 @@ The plugin saves both sides of every turn under `~/.claude/conversation-history/
 
 - `requests/index.html`: every user prompt (UserPromptSubmit hook).
 - `responses/index.html`: every final reply (Stop hook).
-- `first-10.md` / `last-20.md` in each folder: plain-text copies of the session's first 10 entries (original goal, never trimmed) and latest 20 (rolling).
+- `first-10.md` / `last-10.md` in each folder: plain-text copies of the session's first 10 entries (original goal, never trimmed) and latest 10 (rolling).
 - After compaction, a SessionStart (`compact`) hook gives these 4 file paths with a 2-line note: requests are the user's own words and override the summary (newest wins); responses are earlier claims to re-verify. Read them before continuing.
 - `<repo>` is the main git repo folder name (worktrees share it), else the project folder name.
 - This session's id is `${CLAUDE_SESSION_ID}`.
