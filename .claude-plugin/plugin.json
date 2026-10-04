@@ -1,6 +1,6 @@
 {
   "name": "conversation-history",
-  "version": "2.4.2",
+  "version": "2.5.0",
   "description": "Claude Code plugin: saves every prompt and reply as pages styled like Claude Code's terminal output, and after compaction makes Claude re-read your exact words so it keeps your instructions and goal. PDF export.",
   "author": { "name": "Nelson Yau" },
   "homepage": "https://github.com/Chiwai15/conversation-history",

@@ -22,7 +22,7 @@ Open this session: `open ~/.claude/conversation-history/*/${CLAUDE_SESSION_ID}/{
 List a repo's sessions: `ls -t ~/.claude/conversation-history/<repo>/`
 
 Export PDF:
-- In the page: click **Export PDF** in the header, then Save as PDF.
+- In the page: tick entries (or **Select all**) to export only those, then click **Export PDF** and Save as PDF. None ticked exports all. The default file name is `<repo> [<name>] <kind> <date>`.
 - From the shell (macOS Chrome):
   `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --no-pdf-header-footer --print-to-pdf=<out.pdf> "file://<full.html>"`
 - Each entry stays on one page; an entry taller than A4 gets its own longer page instead of being split or shrunk.

@@ -63,7 +63,8 @@ The hooks are active as soon as the plugin is installed. Ask Claude to "open my 
 ## Export or print to PDF
 
 1. Open a saved page, e.g. `open ~/.claude/conversation-history/<repo>/<session>/responses/full.html` (`xdg-open` on Linux), or ask Claude to "export my responses to PDF".
-2. Click **Export PDF** in the header, then choose **Save as PDF**, or pick a printer to print on paper.
+2. Tick the entries you want (or **Select all**); with none ticked, every entry is exported.
+3. Click **Export PDF** in the header, then choose **Save as PDF**, or pick a printer to print on paper.
 
 ![A saved session exported to PDF, opened in Preview](docs/conversation-history-pdf.png)
 
