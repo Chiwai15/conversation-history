@@ -16,7 +16,7 @@ Saves every user request and assistant response to `~/.claude/conversation-histo
 ## Install
 
 ```
-/plugin marketplace add chiwai15/response-saver
+/plugin marketplace add chiwai15/conversation-history
 /plugin install conversation-history@conversation-history
 ```
 
