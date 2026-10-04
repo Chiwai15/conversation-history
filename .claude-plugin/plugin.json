@@ -1,6 +1,6 @@
 {
   "name": "response-saver",
-  "version": "1.4.2",
+  "version": "1.5.0",
   "description": "Appends every assistant response to ~/.claude/responses/<repo>/<session>.html",
   "author": { "name": "Nelson Yau" },
   "license": "MIT"

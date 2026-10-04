@@ -1,5 +1,6 @@
 #!/bin/bash
 export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
+max_replies=500
 
 input=$(cat)
 sid=$(jq -r .session_id <<<"$input")
@@ -39,3 +40,13 @@ fi
 
 body=$(sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' <<<"$txt")
 printf '<section><time>%s</time>\n<pre>%s</pre>\n</section>\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$body" >> "$html"
+
+extra=$(( $(grep -c '^<section><time>' "$html") - max_replies ))
+if [ "$extra" -gt 0 ]; then
+  awk -v drop="$extra" '
+    /^<section><time>/ && drop > 0 { skip = 1 }
+    skip { if ($0 == "</section>") { skip = 0; drop--; after = 1 }; next }
+    after && $0 == "<hr>" { after = 0; next }
+    { after = 0; print }
+  ' "$html" > "$html.tmp" && mv "$html.tmp" "$html"
+fi

@@ -8,6 +8,7 @@ The plugin's Stop hook appends every final reply to `~/.claude/responses/<repo>/
 - `<repo>` is the main git repo folder name (worktrees share it), else the project folder name.
 - This session's id is `${CLAUDE_SESSION_ID}`.
 - Only the final message of each turn is saved; user prompts, images, and subagent replies are not.
+- Each session file keeps at most 500 replies (`max_replies` in `scripts/save.sh`); when reply 501 arrives, the oldest is removed.
 - Shared look and behavior live in `~/.claude/responses/.assets/` (`style.css`, `render.js`, `marked.min.js`, `highlight.min.js`), refreshed by every hook run, so style fixes reach old files too.
 - The page renders Markdown in the browser: terminal-style 10px monospace, newest reply on top, terminal-style tables, highlighted fenced code.
 

@@ -3,6 +3,7 @@
 Appends every assistant response to `~/.claude/responses/<repo>/<session>.html`.
 
 - One folder per repo (worktrees share the main repo name), one file per session, so parallel agents never collide.
+- Keeps the latest 500 replies per session; older ones are removed automatically.
 - **Export PDF** button in the page header: one reply per page (never split), same style as the page. A reply taller than A4 gets its own longer page instead of being shrunk.
 - Markdown, tables and code are rendered in the page itself (bundled `marked` + `highlight.js`, copied to `~/.claude/responses/.assets/`). Nothing extra to install, works offline.
 - Requires `jq` and `git`.
