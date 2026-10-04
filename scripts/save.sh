@@ -7,9 +7,11 @@ cwd=$(jq -r '.cwd // empty' <<<"$input")
 cwd=${cwd:-${CLAUDE_PROJECT_DIR:-$PWD}}
 git_dir=$(git -C "$cwd" rev-parse --path-format=absolute --git-common-dir 2>/dev/null)
 repo=$(basename "$([ -n "$git_dir" ] && dirname "$git_dir" || echo "$cwd")")
-dir="$HOME/.claude/responses/$repo"
+root="$HOME/.claude/responses"
+dir="$root/$repo"
 html="$dir/$sid.html"
-mkdir -p "$dir"
+mkdir -p "$dir" "$root/.assets"
+cp -f "$(dirname "$0")"/../assets/*.js "$root/.assets/"
 
 txt=$(jq -j '.last_assistant_message // empty' <<<"$input")
 if [ -z "$txt" ]; then
@@ -40,35 +42,47 @@ if [ ! -f "$html" ]; then
   ul { list-style: "- "; }
   li > ul, li > ol { margin: 0; }
   li > p { margin: 0; }
+  p:has(+ ul), p:has(+ ol) { margin-bottom: 0; }
   strong { font-weight: bold; }
   a { color: inherit; }
   code, pre { font: inherit; }
   code { color: #5769f7; }
   pre { white-space: pre-wrap; }
   pre code { color: #5769f7; }
-  pre.sourceCode code { color: #3b3b3b; }
-  .kw, .cf, .im, .cn, .ex { color: #0451a5; }
-  .st, .ch, .vs, .ss, .sc { color: #cd3131; }
-  .dv, .bn, .fl, .co, .do, .an, .cv, .in, .wa { color: #107c10; }
-  .bu, .at { color: #0598bc; }
-  .dt { color: #0598bc; opacity: .7; }
-  .fu { color: #949800; }
-  .pp { color: #666666; }
-  .sourceCode a { display: none; }
+  pre code.hljs { color: #3b3b3b; }
+  .hljs-keyword, .hljs-literal, .hljs-type, .hljs-selector-tag { color: #0451a5; }
+  .hljs-string, .hljs-regexp, .hljs-char { color: #cd3131; }
+  .hljs-number, .hljs-comment, .hljs-quote { color: #107c10; }
+  .hljs-built_in, .hljs-attr, .hljs-attribute, .hljs-variable { color: #0598bc; }
+  .hljs-title, .hljs-section { color: #949800; }
+  .hljs-meta { color: #666666; }
   blockquote { padding-left: 1ch; border-left: 2px solid #b3b3b3; font-style: italic; }
   table { border-collapse: collapse; }
   th, td { border: 1px solid #b3b3b3; padding: 0 1ch; text-align: left; }
   hr { border: 0; border-top: 1px dashed #b3b3b3; }
   time { display: block; color: #666666; margin-bottom: 1em; }
+  .md { position: relative; padding-left: 2ch; }
+  .md::before { content: "●"; position: absolute; left: 0; }
 </style>
+<script src="../.assets/marked.min.js"></script>
+<script src="../.assets/highlight.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const esc = s => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    marked.use({ renderer: { html: t => esc(t.text) } });
+    document.querySelectorAll("section > pre").forEach(el => {
+      const md = document.createElement("div");
+      md.className = "md";
+      md.innerHTML = marked.parse(el.textContent);
+      el.replaceWith(md);
+    });
+    hljs.highlightAll();
+  });
+</script>
 HEAD
     printf '<title>%s</title>\n</head>\n<body>\n<header><b>%s</b><span>%s</span></header>\n<main>\n' "$repo" "$repo" "$sid"
   } > "$html"
 fi
 
-if command -v pandoc >/dev/null; then
-  body=$(pandoc -f gfm -t html <<<"$txt")
-else
-  body="<pre>$(sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' <<<"$txt")</pre>"
-fi
-printf '<section><time>%s</time>\n%s\n</section>\n<hr>\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$body" >> "$html"
+body=$(sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' <<<"$txt")
+printf '<section><time>%s</time>\n<pre>%s</pre>\n</section>\n<hr>\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$body" >> "$html"

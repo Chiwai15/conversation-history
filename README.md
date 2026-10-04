@@ -3,7 +3,7 @@
 Appends every assistant response to `~/.claude/responses/<repo>/<session>.html`.
 
 - One folder per repo (worktrees share the main repo name), one file per session, so parallel agents never collide.
-- Markdown is rendered with `pandoc` when installed, otherwise saved as escaped plain text.
+- Markdown, tables and code are rendered in the page itself (bundled `marked` + `highlight.js`, copied to `~/.claude/responses/.assets/`). Nothing extra to install, works offline.
 - Requires `jq` and `git`.
 
 ## Install
