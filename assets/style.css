@@ -29,7 +29,7 @@ pre code.hljs { color: #3b3b3b; }
 .hljs-meta { color: #666666; }
 blockquote { padding-left: 1ch; border-left: 2px solid #b3b3b3; font-style: italic; }
 table { border-collapse: collapse; }
-th, td { border: 1px solid #3b3b3b; padding: .6em 1ch; text-align: left; }
+th, td { border: 1px solid #3b3b3b; padding: .6em 1.5ch; text-align: left; }
 th { font-weight: normal; text-align: center; }
 hr { border: 0; border-top: 1px dashed #b3b3b3; }
 time { display: block; color: #666666; margin-bottom: 1em; }
