@@ -62,7 +62,7 @@ if [ "$extra" -gt 0 ]; then
   ' "$html" > "$html.tmp" && mv "$html.tmp" "$html"
 fi
 
-count_entries() { [ -f "$1" ] && grep -c '^<!-- entry -->$' "$1" || true; }
+count_entries() { if [ -f "$1" ]; then grep -c '^<!-- entry -->$' "$1" || true; fi; }
 entry=$(printf '<!-- entry -->\n### %s\n\n%s\n' "$ts" "$txt")
 first="$dir/first-$first_entries.md"
 last="$dir/last-$last_entries.md"
