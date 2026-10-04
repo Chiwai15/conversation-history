@@ -51,26 +51,21 @@ In Claude Code:
 
 The hooks are active as soon as the plugin is installed. Ask Claude to "open my conversation history" to use the `conversation-history` skill.
 
-## What gets saved
-
-Everything goes to `~/.claude/conversation-history/<repo>/<session>/`:
+## Where it's saved
 
 ```
-<repo>/<session>/requests/full.html     user prompts
-<repo>/<session>/responses/full.html    final replies
-<repo>/<session>/{requests,responses}/first-10.md, last-10.md   plain-text recall files
+~/.claude/conversation-history/<repo>/<session>/
+├── requests/full.html      your prompts
+├── responses/full.html     Claude's replies
+└── {requests,responses}/first-10.md, last-10.md   recall files used after compaction
 ```
-
-- One folder per repo (worktrees share the main repo name), one folder per session, so parallel agents never collide.
-- `/rename` a session and `<repo>/<name>` links to its folder; renaming again moves the link, and the name shows in the page header.
-- Keeps the latest 500 entries per page; older ones are removed automatically.
-- All three limits (500, first 10, last 10) can be changed in `/config`. Each applies to requests and responses separately; a lowered limit takes effect on the next message.
-- Markdown, tables and code are rendered in the page itself (bundled `marked` + `highlight.js`, copied to `~/.claude/conversation-history/.assets/`). Nothing extra to install, works offline.
 
 ## Export or print to PDF
 
 1. Open a saved page, e.g. `open ~/.claude/conversation-history/<repo>/<session>/responses/full.html` (`xdg-open` on Linux), or ask Claude to "export my responses to PDF".
 2. Click **Export PDF** in the header, then choose **Save as PDF**, or pick a printer to print on paper.
+
+![A saved session exported to PDF, opened in Preview](docs/conversation-history-pdf.png)
 
 - An entry is never split across pages (short ones may share a page); an entry taller than A4 gets its own longer page instead of being shrunk.
 - Same look as the page, on a white background to save ink; the button is hidden in the output.
@@ -86,20 +81,6 @@ Everything goes to `~/.claude/conversation-history/<repo>/<session>/`:
 - macOS or Linux with `bash`
 - `jq` (required; without it nothing is saved)
 - `git` (optional; used to name the repo folder, otherwise the project folder name is used)
-
-## Privacy
-
-Everything stays on your machine under `~/.claude/conversation-history/`. The plugin makes no network requests. Saved pages contain whatever you typed, including any secrets you pasted, so treat the folder like your shell history.
-
-## Update and uninstall
-
-```
-claude plugin marketplace update conversation-history
-claude plugin update conversation-history@conversation-history
-claude plugin uninstall conversation-history@conversation-history
-```
-
-Restart Claude Code (or run `/reload-plugins`) after updating. Uninstalling keeps your saved history; delete `~/.claude/conversation-history/` to remove it.
 
 ## Troubleshooting
 
