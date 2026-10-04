@@ -1,7 +1,30 @@
 {
   "name": "conversation-history",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "description": "Saves every user request and assistant response to ~/.claude/conversation-history/<repo>/<session>/",
   "author": { "name": "Nelson Yau" },
-  "license": "MIT"
+  "license": "MIT",
+  "userConfig": {
+    "max_entries": {
+      "type": "number",
+      "title": "How many messages to keep in the full history",
+      "description": "full.html keeps this many messages. When a new one comes in past the limit, the oldest is deleted. Default: 500.",
+      "default": 500,
+      "min": 1
+    },
+    "first_entries": {
+      "type": "number",
+      "title": "How many messages to save from the start of a session",
+      "description": "The first messages of a session are saved in first-N.md and never deleted. After compaction, they are used to recall the original goal. Default: 10.",
+      "default": 10,
+      "min": 1
+    },
+    "last_entries": {
+      "type": "number",
+      "title": "How many recent messages to save",
+      "description": "The most recent messages are saved in last-N.md. Each new message pushes out the oldest. After compaction, they are used to recall the latest work. Default: 10.",
+      "default": 10,
+      "min": 1
+    }
+  }
 }
