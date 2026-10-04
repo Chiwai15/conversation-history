@@ -35,10 +35,14 @@ hr { border: 0; border-top: 1px dashed #b3b3b3; }
 time { display: block; color: #666666; margin-bottom: 1em; }
 .md { position: relative; padding-left: 2ch; }
 .md::before { content: "●"; position: absolute; left: 0; }
-header .export { float: right; font: inherit; color: #666666; background: none; border: 1px solid #b3b3b3; padding: 0 1ch; cursor: pointer; }
+header { display: flex; align-items: center; }
+header .export { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; font: inherit; color: #3b3b3b; background: #ffffff; border: 1px solid #d4d4d4; border-radius: 6px; padding: 4px 10px; cursor: pointer; box-shadow: 0 1px 2px rgba(0, 0, 0, .06); transition: background .15s, border-color .15s; }
+header .export:hover { background: #f0f0f0; border-color: #b3b3b3; }
+header .export:active { background: #e8e8e8; }
+header .export svg { width: 12px; height: 12px; }
 @page { size: A4; margin: 0; }
 @media print {
-  * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  body, header { background: #ffffff; }
   header { position: static; }
   header .export { display: none; }
   section { break-inside: avoid; }

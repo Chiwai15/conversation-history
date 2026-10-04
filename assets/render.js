@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const button = document.createElement("button");
   button.className = "export";
-  button.textContent = "Export PDF";
+  button.innerHTML = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v8M4.5 6.5 8 10l3.5-3.5M3 13h10"/></svg>Export PDF';
   button.onclick = () => print();
   document.querySelector("header").append(button);
 

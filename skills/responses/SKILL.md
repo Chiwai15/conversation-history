@@ -19,5 +19,6 @@ Export PDF:
 - From the shell (macOS Chrome):
   `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --no-pdf-header-footer --print-to-pdf=<out.pdf> "file://<session.html>"`
 - Each reply stays on one page; a reply taller than A4 gets its own longer page instead of being split or shrunk.
+- Printed pages use a white background to save ink; text and code colors are kept.
 
 Reply not saved? Hooks load at session start. After installing or updating the plugin, run `/reload-plugins` or start a new session.
