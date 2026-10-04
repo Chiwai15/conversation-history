@@ -76,7 +76,7 @@ if [ ! -f "$html" ]; then
       md.innerHTML = marked.parse(el.textContent);
       el.replaceWith(md);
     });
-    hljs.highlightAll();
+    document.querySelectorAll("pre code[class*=\"language-\"]").forEach(el => hljs.highlightElement(el));
   });
 </script>
 HEAD
