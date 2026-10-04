@@ -1,3 +1,4 @@
+# shellcheck shell=bash disable=SC2034,SC2154  # sourced: variables come from the caller
 # Links <repo>/<session name> -> <session_id> and shows the name in $html's header.
 # Uses the latest /rename title in the transcript; earlier name links of this session are removed.
 transcript=$(jq -r '.transcript_path // empty' <<<"$input")

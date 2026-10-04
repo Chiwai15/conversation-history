@@ -1,5 +1,6 @@
 #!/bin/bash
 export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
+command -v jq >/dev/null || exit 0
 max_entries=${CLAUDE_PLUGIN_OPTION_MAX_ENTRIES:-500}
 first_entries=${CLAUDE_PLUGIN_OPTION_FIRST_ENTRIES:-10}
 last_entries=${CLAUDE_PLUGIN_OPTION_LAST_ENTRIES:-10}
@@ -7,6 +8,7 @@ max_entries=${max_entries%%.*} first_entries=${first_entries%%.*} last_entries=$
 kind=$1
 
 input=$(cat)
+# shellcheck source=session-dir.sh
 source "$(dirname "$0")/session-dir.sh"
 dir="$session_dir/$kind"
 html="$dir/full.html"
@@ -42,6 +44,7 @@ HEAD
   } > "$html"
 fi
 
+# shellcheck source=session-name.sh
 source "$(dirname "$0")/session-name.sh"
 
 body=$(sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' <<<"$txt")

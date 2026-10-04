@@ -1,7 +1,9 @@
 #!/bin/bash
 export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
+command -v jq >/dev/null || exit 0
 
 input=$(cat)
+# shellcheck source=session-dir.sh
 source "$(dirname "$0")/session-dir.sh"
 files=$(ls "$session_dir"/requests/first-*.md "$session_dir"/requests/last-*.md "$session_dir"/responses/first-*.md "$session_dir"/responses/last-*.md 2>/dev/null)
 [ -z "$files" ] && exit 0

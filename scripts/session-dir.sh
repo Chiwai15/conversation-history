@@ -1,3 +1,4 @@
+# shellcheck shell=bash disable=SC2034,SC2154  # sourced: variables come from the caller
 # Sets $repo, $sid and $session_dir from the hook input in $input.
 sid=$(jq -r .session_id <<<"$input")
 cwd=$(jq -r '.cwd // empty' <<<"$input")

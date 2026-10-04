@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Lint scripts
+        run: shellcheck -s bash scripts/*.sh
+
+      - name: Validate JSON
+        run: for f in .claude-plugin/*.json hooks/hooks.json; do jq empty "$f"; done
+
+      - name: End-to-end hook run
+        run: |
+          export HOME="$RUNNER_TEMP/home"
+          mkdir -p "$HOME" "$RUNNER_TEMP/proj"
+          d="$HOME/.claude/conversation-history/proj/ci"
+          hook_input() { printf '{"session_id":"ci","cwd":"%s",%s}' "$RUNNER_TEMP/proj" "$1"; }
+          for i in 1 2 3; do
+            hook_input "\"prompt\":\"request $i\"" | scripts/save.sh requests
+            hook_input "\"last_assistant_message\":\"reply $i\"" | scripts/save.sh responses
+          done
+          for k in requests responses; do
+            test -f "$d/$k/full.html"
+            test "$(grep -c '^<section><time>' "$d/$k/full.html")" = 3
+            test "$(grep -c '^<!-- entry -->$' "$d/$k/first-10.md")" = 3
+            test "$(grep -c '^<!-- entry -->$' "$d/$k/last-10.md")" = 3
+          done
+          hook_input '"prompt":"request 4"' | CLAUDE_PLUGIN_OPTION_MAX_ENTRIES=2 CLAUDE_PLUGIN_OPTION_LAST_ENTRIES=2 scripts/save.sh requests
+          test "$(grep -c '^<section><time>' "$d/requests/full.html")" = 2
+          test "$(grep -c '^<!-- entry -->$' "$d/requests/last-2.md")" = 2
+          hook_input '"source":"compact"' | scripts/recall.sh | grep -q 'requests/first-10.md'
+          echo "e2e ok"

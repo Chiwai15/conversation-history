@@ -1,0 +1,21 @@
+name: Bug report
+description: Something is not saved, recalled or rendered as expected
+labels: [bug]
+body:
+  - type: textarea
+    attributes:
+      label: What happened
+      description: What you expected, and what you saw instead.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Steps to reproduce
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Versions
+      description: Output of `claude --version` and the plugin version from `claude plugin list`, plus your OS.
+    validations:
+      required: true

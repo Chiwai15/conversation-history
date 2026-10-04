@@ -1,9 +1,12 @@
 {
   "name": "conversation-history",
-  "version": "2.4.0",
-  "description": "Saves every user request and assistant response to ~/.claude/conversation-history/<repo>/<session>/",
+  "version": "2.4.1",
+  "description": "Claude Code plugin: saves every prompt and reply, and after compaction makes Claude re-read your exact words so it keeps your instructions and original goal. Browsable HTML history with PDF export.",
   "author": { "name": "Nelson Yau" },
+  "homepage": "https://github.com/Chiwai15/conversation-history",
+  "repository": "https://github.com/Chiwai15/conversation-history",
   "license": "MIT",
+  "keywords": ["claude-code", "compaction", "context", "conversation-history", "chat-history", "export-pdf"],
   "userConfig": {
     "max_entries": {
       "type": "number",

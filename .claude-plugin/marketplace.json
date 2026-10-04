@@ -1,11 +1,12 @@
 {
   "name": "conversation-history",
   "owner": { "name": "Nelson Yau" },
+  "metadata": { "description": "Conversation history and post-compaction recall for Claude Code" },
   "plugins": [
     {
       "name": "conversation-history",
       "source": "./",
-      "description": "Saves every user request and assistant response to ~/.claude/conversation-history/<repo>/<session>/"
+      "description": "Claude Code plugin: saves every prompt and reply, and after compaction makes Claude re-read your exact words so it keeps your instructions and original goal. Browsable HTML history with PDF export."
     }
   ]
 }

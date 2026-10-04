@@ -1,0 +1,10 @@
+name: Idea or feedback
+description: Suggest an improvement or share how you use the plugin
+labels: [enhancement]
+body:
+  - type: textarea
+    attributes:
+      label: Idea or feedback
+      description: What would make this plugin more useful to you?
+    validations:
+      required: true
