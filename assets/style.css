@@ -35,3 +35,11 @@ hr { border: 0; border-top: 1px dashed #b3b3b3; }
 time { display: block; color: #666666; margin-bottom: 1em; }
 .md { position: relative; padding-left: 2ch; }
 .md::before { content: "●"; position: absolute; left: 0; }
+header .export { float: right; font: inherit; color: #666666; background: none; border: 1px solid #b3b3b3; padding: 0 1ch; cursor: pointer; }
+@page { size: A4; margin: 0; }
+@media print {
+  * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  header { position: static; }
+  header .export { display: none; }
+  section { break-inside: avoid; }
+}

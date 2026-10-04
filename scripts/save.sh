@@ -31,19 +31,7 @@ if [ ! -f "$html" ]; then
 <link rel="stylesheet" href="../.assets/style.css">
 <script src="../.assets/marked.min.js"></script>
 <script src="../.assets/highlight.min.js"></script>
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const esc = s => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    marked.use({ renderer: { html: t => esc(t.text) } });
-    document.querySelectorAll("section > pre").forEach(el => {
-      const md = document.createElement("div");
-      md.className = "md";
-      md.innerHTML = marked.parse(el.textContent);
-      el.replaceWith(md);
-    });
-    document.querySelectorAll("pre code[class*=\"language-\"]").forEach(el => hljs.highlightElement(el));
-  });
-</script>
+<script src="../.assets/render.js"></script>
 HEAD
     printf '<title>%s</title>\n</head>\n<body>\n<header><b>%s</b><span>%s</span></header>\n<main>\n' "$repo" "$repo" "$sid"
   } > "$html"
