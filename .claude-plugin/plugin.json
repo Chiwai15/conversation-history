@@ -1,6 +1,6 @@
 {
   "name": "conversation-history",
-  "version": "2.4.1",
+  "version": "2.4.2",
   "description": "Claude Code plugin: saves every prompt and reply as pages styled like Claude Code's terminal output, and after compaction makes Claude re-read your exact words so it keeps your instructions and goal. PDF export.",
   "author": { "name": "Nelson Yau" },
   "homepage": "https://github.com/Chiwai15/conversation-history",
@@ -10,21 +10,21 @@
   "userConfig": {
     "max_entries": {
       "type": "number",
-      "title": "How many messages to keep in the full history",
+      "title": "How many messages to keep in the full history (default 500)",
       "description": "full.html keeps this many messages. When a new one comes in past the limit, the oldest is deleted. Default: 500.",
       "default": 500,
       "min": 1
     },
     "first_entries": {
       "type": "number",
-      "title": "How many messages to save from the start of a session",
+      "title": "How many messages to save from the start of a session (default 10)",
       "description": "The first messages of a session are saved in first-N.md and never deleted. After compaction, they are used to recall the original goal. Default: 10.",
       "default": 10,
       "min": 1
     },
     "last_entries": {
       "type": "number",
-      "title": "How many recent messages to save",
+      "title": "How many recent messages to save (default 10)",
       "description": "The most recent messages are saved in last-N.md. Each new message pushes out the oldest. After compaction, they are used to recall the latest work. Default: 10.",
       "default": 10,
       "min": 1
