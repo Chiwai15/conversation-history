@@ -10,6 +10,7 @@ The plugin saves both sides of every turn under `~/.claude/conversation-history/
 - `first-10.md` / `last-10.md` in each folder: plain-text copies of the session's first 10 entries (original goal, never trimmed) and latest 10 (rolling).
 - After compaction, a SessionStart (`compact`) hook gives these 4 file paths with a 2-line note: requests are the user's own words and override the summary (newest wins); responses are earlier claims to re-verify. Read them before continuing.
 - `<repo>` is the main git repo folder name (worktrees share it), else the project folder name.
+- After `/rename`, `<repo>/<name>` links to the session folder (spaces, `/`, `:` become `-`; a name already used by another session gets `-<first 8 of id>`). Renaming again moves the link; the id folder never changes. The name also shows in the page header and tab.
 - This session's id is `${CLAUDE_SESSION_ID}`.
 - Images and subagent replies are not saved; for responses, only the final message of each turn.
 - Each page keeps at most 500 entries (`max_entries` in `scripts/save.sh`); when entry 501 arrives, the oldest is removed.

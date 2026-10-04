@@ -40,6 +40,8 @@ HEAD
   } > "$html"
 fi
 
+source "$(dirname "$0")/session-name.sh"
+
 body=$(sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' <<<"$txt")
 ts=$(date '+%Y-%m-%d %H:%M:%S')
 printf '<section><time>%s</time>\n<pre>%s</pre>\n</section>\n' "$ts" "$body" >> "$html"

@@ -2,6 +2,7 @@ body { margin: 0; background: #f8f8f8; color: #3b3b3b; font: 10px/1.2 Menlo, Mon
 header { position: sticky; top: 0; background: #f8f8f8; border-bottom: 1px solid #e5e5e5; padding: 8px 20px; color: #666666; }
 header b { color: #d77757; }
 header span { margin-left: 2ch; }
+header .name { color: #3b3b3b; font-weight: bold; }
 main { padding: 0 20px 60px; max-width: 1400px; display: flex; flex-direction: column-reverse; }
 main > hr { display: none; }
 section { padding: 16px 0; border-bottom: 1px dashed #b3b3b3; }

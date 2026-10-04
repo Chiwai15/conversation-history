@@ -1,6 +1,6 @@
 {
   "name": "conversation-history",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Saves every user request and assistant response to ~/.claude/conversation-history/<repo>/<session>/",
   "author": { "name": "Nelson Yau" },
   "license": "MIT"
