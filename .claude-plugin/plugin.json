@@ -1,7 +1,7 @@
 {
-  "name": "response-saver",
-  "version": "1.5.0",
-  "description": "Appends every assistant response to ~/.claude/responses/<repo>/<session>.html",
+  "name": "conversation-history",
+  "version": "2.0.0",
+  "description": "Saves every user request and assistant response to ~/.claude/conversation-history/<repo>/<session>/",
   "author": { "name": "Nelson Yau" },
   "license": "MIT"
 }

@@ -1,11 +1,11 @@
 {
-  "name": "response-saver",
+  "name": "conversation-history",
   "owner": { "name": "Nelson Yau" },
   "plugins": [
     {
-      "name": "response-saver",
+      "name": "conversation-history",
       "source": "./",
-      "description": "Appends every assistant response to ~/.claude/responses/<repo>/<session>.html"
+      "description": "Saves every user request and assistant response to ~/.claude/conversation-history/<repo>/<session>/"
     }
   ]
 }
