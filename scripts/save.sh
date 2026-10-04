@@ -50,4 +50,4 @@ HEAD
 fi
 
 body=$(sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' <<<"$txt")
-printf '<section><time>%s</time>\n<pre>%s</pre>\n</section>\n<hr>\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$body" >> "$html"
+printf '<section><time>%s</time>\n<pre>%s</pre>\n</section>\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$body" >> "$html"
